@@ -93,4 +93,4 @@ Veuillez vous assurer de respecter le code de conduite et les bonnes pratiques d
 Ce projet a été développé par [medab123](https://github.com/medab123) 
 
 ## Licence
-Ce projet est sous licence MIT. Vous pouvez consulter le fichier [LICENSE] pour plus de détails.
+Ce projet est sous licence MIT. Vous pouvez consulter le fichier `LICENSE`  pour plus de détails.

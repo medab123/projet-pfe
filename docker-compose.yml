@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - db
+    command: bash -c "service apache2 start && sleep 5 && php artisan migrate --seed --force && echo Migrations completed && tail -f /dev/null"
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: webinaires
+      MYSQL_USER: your_username
+

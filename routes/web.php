@@ -35,8 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/calendrier', [CalendrierController::class, "index"])->name("calendrier.index");
     Route::get('/event/inscrire/{webinaire_id}', [EventController::class, "inscrire"])->name("event.inscrire");
 
-
-
     Route::prefix('admin')->name("admin.")->group(function () {
         Route::prefix('webinaires')->name("webinaires.")->group(function () {
             Route::get('/', function () {

@@ -1,7 +1,10 @@
 @extends('layouts.app')
+@section('title', 'Webinaires')
 
 @section('content')
     <div class="container mt-2">
+        <h2>Webinaires</h2>
+
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -23,7 +26,6 @@
                             </a>
                             <a class="card-body" href="{{ route('webinaires.show', $webinaire->id) }}">
                                 <h1 class="card-title">{{ $webinaire->name }}</h1>
-                                <p class="card-text">{!! $webinaire->description !!}</p>
                                 <p class="card-text">Date de début : {{ $webinaire->start_dt }}</p>
                                 <p class="card-text">Date de fin : {{ $webinaire->end_dt }}</p>
                             </a>

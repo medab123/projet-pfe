@@ -23,8 +23,8 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>Start Date and Time</th>
                     <th>End Date and Time</th>
                     <th>Action</th>
@@ -35,8 +35,10 @@
                 {{-- Replace 'webinairesData' with your actual data variable --}}
                 @foreach($webinaires as $webinaire)
                 <tr>
+                    <td>
+                        <img src="{{ asset('storage/' . $webinaire->image) }}" alt="Webinaire Image" class="rounded" style="width: 50px;">
+                    </td>
                     <td>{{ $webinaire->name }}</td>
-                    <td>{{ $webinaire->description }}</td>
                     <td>{{ $webinaire->start_dt }}</td>
                     <td>{{ $webinaire->end_dt }}</td>
                     <td>

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebinaireController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +19,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 Route::view('about', 'about')->name('about');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
 Route::get("/", [HomeController::class, "index"])->name("home");
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     //Route::view('about', 'about')->name('about');
     Route::prefix('webinaires')->name("webinaires.")->group(function () {
         Route::get('/', [WebinaireController::class, "index"])->name("index");
@@ -31,9 +39,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}', [WebinaireController::class, "show"])->name("show");
 
     });
+    Route::prefix('event')->name("event.")->group(function () {
+        Route::get('/inscrire/{webinaire_id}', [EventController::class, "inscrire"])->name("inscrire");
+        Route::post("/disinscrit",[EventController::class,"disinscrit"])->name("disinscrit");
+    });
 
     Route::get('/calendrier', [CalendrierController::class, "index"])->name("calendrier.index");
-    Route::get('/event/inscrire/{webinaire_id}', [EventController::class, "inscrire"])->name("event.inscrire");
 
     Route::prefix('admin')->name("admin.")->group(function () {
         Route::prefix('webinaires')->name("webinaires.")->group(function () {
@@ -46,6 +57,13 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{id}', [WebinaireController::class, "destroy"])->name("destroy");
             Route::get('/create', [WebinaireController::class, "create"])->name("create");
             Route::post('/store', [WebinaireController::class, "store"])->name("store");
+            Route::post('/image_upload', [WebinaireController::class, "image_upload"])->name("image_upload");
+            Route::get('/inscrit', function(){
+                $webinair = new WebinaireController();
+                return $webinair->WebinairesInscrits(true);
+            } )->name("inscrit");
+
+
 
         });
         Route::prefix('users')->name("users.")->group(function () {

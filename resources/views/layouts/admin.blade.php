@@ -1,12 +1,4 @@
 <!DOCTYPE html>
-<!--
-* CoreUI - Free Bootstrap Admin Template
-* @version v4.2.2
-* @link https://coreui.io
-* Copyright (c) 2022 creativeLabs Łukasz Holeczek
-* Licensed under MIT (https://coreui.io/license)
--->
-<!-- Breadcrumb-->
 <html lang="en">
 
 <head>
@@ -24,17 +16,13 @@
     <meta content="#ffffff" name="msapplication-TileColor" />
     <meta content="assets/favicon/ms-icon-144x144.png" name="msapplication-TileImage" />
     <meta content="#ffffff" name="theme-color" />
-    <!-- Vendors styles-->
     <link href="{{ asset('/adminlte/vendors/simplebar/css/simplebar.css') }}" rel="stylesheet" />
     <link href="{{ asset('/adminlte/css/vendors/simplebar.css') }}" rel="stylesheet" />
-    <!-- Main styles for this application-->
-    <link href="{{ asset('adminlte/css/style.css') }}" rel="stylesheet" />
-    <!-- We use those styles to show code examples, you should remove them in your application.-->
+=    <link href="{{ asset('adminlte/css/style.css') }}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css" rel="stylesheet" />
     <link href="{{ asset('/adminlte/css/examples.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-***" crossorigin="anonymous" />
-
-    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-***" crossorigin="anonymous" />
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -55,8 +43,10 @@
     <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
         <div class="sidebar-brand d-none d-md-flex">
 
-            <img src="{{ asset('img/logo-science-conflue.png') }}"  height="40" alt="{{ config("app.name") }}" class="sidebar-brand-full">
-            <img src="{{ asset('img/logo-science-conflue.png') }}"  height="40" alt="{{ config("app.name") }}" class="sidebar-brand-narrow">
+            <img src="{{ asset('img/logo-science-conflue.png') }}" height="40" alt="{{ config('app.name') }}"
+                class="sidebar-brand-full">
+            <img src="{{ asset('img/logo-science-conflue.png') }}" height="40" alt="{{ config('app.name') }}"
+                class="sidebar-brand-narrow">
 
             <svg alt="CoreUI Logo" class="sidebar-brand-narrow" height="46" width="46">
                 <use xlink:href="/adminlte/assets/brand/coreui.svg#signet">
@@ -80,13 +70,13 @@
                 Webinaire
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("admin.webinaires.index") }}">
+                <a class="nav-link" href="{{ route('admin.webinaires.index') }}">
                     <i class="nav-icon fa fa-podcast" aria-hidden="true"></i>
                     List Webinaire
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("admin.webinaires.create") }}">
+                <a class="nav-link" href="{{ route('admin.webinaires.create') }}">
                     <svg class="nav-icon">
                         <use xlink:href="/adminlte/vendors/@coreui/icons/svg/free.svg#cil-pencil">
                         </use>
@@ -94,17 +84,26 @@
                     Ajouter Webinaire
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.webinaires.inscrit') }}">
+                    <span class="fa-stack nav-icon" style="top:-12px">
+                        <i class="fas fa-users fa-stack-1x m-0"></i>
+                        <i class=" fas fa-check fa-stack-1x text-success m-0 "></i>
+                      </span>
+                    Webinaire inscrit
+                </a>
+            </li>
             <li class="nav-title">
                 Users
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("admin.users.index") }}">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <i class="nav-icon fa fa-users" aria-hidden="true"></i>
                     List Users
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("admin.users.create") }}">
+                <a class="nav-link" href="{{ route('admin.users.create') }}">
                     <svg class="nav-icon">
                         <use xlink:href="/adminlte/vendors/@coreui/icons/svg/free.svg#cil-pencil">
                         </use>
@@ -309,8 +308,13 @@
                         <a aria-expanded="false" aria-haspopup="true" class="nav-link py-0"
                             data-coreui-toggle="dropdown" href="#" role="button">
                             <div class="avatar avatar-md">
-                                <img alt="user@email.com" class="avatar-img"
-                                    src="{{ asset('storage/' . auth()->user()->image) }}" />
+                                <img alt="{{ auth()->user()->email }}" class="avatar-img"
+                                    src="
+    @if (auth()->user()->image) {{ asset('storage/' . auth()->user()->image) }}
+    @else
+        https://eu.ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }} @endif
+" />
+
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end pt-0">

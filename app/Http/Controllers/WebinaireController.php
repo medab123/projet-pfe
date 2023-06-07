@@ -15,30 +15,40 @@ class WebinaireController extends Controller
         if ($admin) {
             return view("admin.webinaires.index", compact("webinaires"));
         }
-        $userEvents = Event::where("user_id",auth()->user()->id)->pluck("webinaire_id")->toArray();
+        $userEvents = Event::where("user_id", auth()->user()->id)->pluck("webinaire_id")->toArray();
 
-        return view("webinaires.index", compact("webinaires","userEvents"));
+        return view("webinaires.index", compact("webinaires", "userEvents"));
 
     }
-    public function WebinairesInscrits()
+    public function WebinairesInscrits($admin = false)
     {
-        $events = Event::where("user_id", auth()->user()->id)->with("webinaire")->get();
-        $subscribedWebinaires = $events->pluck('webinaire')->map(function ($webinaire) {
-            return [
-                'image' => $webinaire->image,
-                'title' => $webinaire->name,
-                'start' => $webinaire->start_dt,
-                'end' => $webinaire->end_dt,
-                'description' => $webinaire->description,
-            ];
-        });
-        return view("webinaires.inscrits", compact("subscribedWebinaires"));
+        if(!$admin){
+            $events = Event::where("user_id", auth()->user()->id)->with("webinaire")->get();
+
+            return view("webinaires.inscrits", compact("events"));
+        }else{
+            $events = Event::with("user","webinaire")->get();
+            dd($events->toArray());
+        }
+
 
     }
-    public function show($id){
-        $userEvents = Event::where("user_id",auth()->user()->id)->pluck("webinaire_id")->toArray();
+    public function image_upload(Request $request)
+    {
+        $image = $request->file('file');
+        $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('upload/webinaire/images/uploads'), $filename);
 
-        return view("webinaires.show",["webinaire"=>Webinaire::find($id),"userEvents"=>$userEvents]);
+        return response()->json([
+            'location' => asset('upload/webinaire/images/uploads/' . $filename),
+        ]);
+    }
+
+    public function show($id)
+    {
+        $userEvents = Event::where("user_id", auth()->user()->id)->pluck("webinaire_id")->toArray();
+
+        return view("webinaires.show", ["webinaire" => Webinaire::find($id), "userEvents" => $userEvents]);
     }
     // public function index(){
     //     $webinaires = Webinaire::paginate(9);
@@ -92,8 +102,10 @@ class WebinaireController extends Controller
         $webinaire->end_dt = $validatedData['end_dt'];
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images');
-            $webinaire->image = $imagePath;
+            $file = $request->file('image');
+            $filename = $file->getClientOriginalName();
+            $path = $file->storeAs('images', $filename, 'public');
+            $webinaire->image = $path;
         }
 
         $webinaire->save();

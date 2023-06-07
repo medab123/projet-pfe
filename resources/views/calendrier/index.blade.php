@@ -26,8 +26,36 @@
 
     <!-- Include necessary CSS and JS libraries for the calendar -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet" />
+
+
+    <style>
+        #day-event-list>li {
+            list-style: none;
+            padding-left: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .border-left-green {
+            border-left: 4px solid #28a745 !important;
+            background: rgb(209, 241, 209)
+        }
+
+        .border-warning {
+            border-left: 4px solid #ffc107 !important;
+            background: lightyellow
+        }
+
+        .border-danger {
+            border-left: 4px solid #dc3545 !important;
+            background: rgb(240, 215, 215)
+        }
+    </style>
+@endsection
+
+
+@section('custom_scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 
     <script>
@@ -58,16 +86,13 @@
                 return moment(event.start).isSame(now, 'day');
             });
 
-            // Set the locale to French
             moment.locale('fr');
-
-            // Render the day events in the day-events section
             var dayEventList = $('#day-event-list');
             dayEvents.forEach(function(event) {
                 var startTime = moment(event.start);
                 var endTime = moment(event.end);
                 var duration = moment.duration(endTime.diff(startTime)).asMinutes();
-                var timeDifference = now.diff(startTime, 'minutes');
+                var timeDifference = startTime.diff(now, 'minutes');
                 var timeDifferenceHuman = startTime.fromNow();
 
                 var listItem = $('<li>').html(`<strong>${event.title}</strong><br>
@@ -105,25 +130,4 @@
             });
         });
     </script>
-
-    <style>
-        li {
-            list-style: none;
-        }
-
-        .border-left-green {
-            padding-left: 10px;
-            border-left: 4px solid #28a745 !important;
-        }
-
-        .border-warning {
-            padding-left: 10px;
-            border-left: 4px solid #ffc107 !important;
-        }
-
-        .border-danger {
-            padding-left: 10px;
-            border-left: 4px solid #dc3545 !important;
-        }
-    </style>
 @endsection

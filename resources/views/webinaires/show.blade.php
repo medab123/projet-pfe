@@ -12,7 +12,7 @@
                 {{ session('error') }}
             </div>
         @endif
-        <div class="card">
+        {{-- <div class="card">
             <img style="width: 100%; height: 100%;" class="" src="{{ asset('storage/' . $webinaire->image) }}"
                 alt="{{ $webinaire->name }}">
 
@@ -29,7 +29,12 @@
                     </a>
                 @endif
             </div>
-        </div>
+        </div> --}}
+        <style type="text/css">
+            {!! $webinaire->css !!}
+        </style>
+
+        {!! $webinaire->html !!}
 
     </div>
 @endsection

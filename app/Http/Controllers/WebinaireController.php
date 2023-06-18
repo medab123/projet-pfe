@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Webinaire;
 use Illuminate\Http\Request;
+use Dotlogics\Grapesjs\App\Traits\EditorTrait;
 
 class WebinaireController extends Controller
 {
+    use EditorTrait;
+    public function editor(Request $request, $id)
+    {
+        $page = Webinaire::find($id);
+        return $this->show_gjs_editor($request, $page);
+    }
     public function index($admin = false)
     {
 

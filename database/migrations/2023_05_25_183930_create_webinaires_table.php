@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text("description");
             $table->dateTime("start_dt");
             $table->dateTime("end_dt");
-
+            $table->text("gjs_data")->nullable();
             $table->timestamps();
         });
     }

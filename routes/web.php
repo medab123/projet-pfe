@@ -19,6 +19,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
+
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
@@ -52,6 +53,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 $webinaires = new WebinaireController();
                 return $webinaires->index(true);
             })->name("index");
+            Route::get('/{page}/editor',[WebinaireController::class,'editor'])->name("editor");
+            Route::get('/show/{id}', [WebinaireController::class, "show"])->name("show");
             Route::get('/edit/{id}', [WebinaireController::class, "edit"])->name("edit");
             Route::put('/{id}', [WebinaireController::class, "update"])->name("update");
             Route::delete('/{id}', [WebinaireController::class, "destroy"])->name("destroy");

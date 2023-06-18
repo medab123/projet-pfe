@@ -23,9 +23,7 @@
                                 <a href="{{ route('webinaires.show', $event->webinaire->id) }}" class="btn btn-primary">
                                     Détails
                                 </a>
-                                <button href="#" class="btn btn-danger" onclick="disinscrit({{ $event->id }})">
-                                    Désinscrit
-                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -39,29 +37,29 @@
     </div>
 
     <script>
-        const disinscrit = (id_webinaire) => {
-            $.confirm({
-                title: 'Confirmer la désinscription de ce webinaire !',
-                content: 'Confirmer la désinscription de ce webinaire',
-                buttons: {
-                    confirm: function() {
-                        $('.container').preloader()
-                        $.post("{{ route('event.disinscrit') }}", {
-                            id: id_webinaire
-                        }).then((res) => {
-                            location.reload();
-                        }).always((res) => {
-                            $('.container').preloader("remove")
-                        })
+        // const disinscrit = (id_webinaire) => {
+        //     $.confirm({
+        //         title: 'Confirmer la désinscription de ce webinaire !',
+        //         content: 'Confirmer la désinscription de ce webinaire',
+        //         buttons: {
+        //             confirm: function() {
+        //                 $('.container').preloader()
+        //                 $.post("{{ route('event.disinscrit') }}", {
+        //                     id: id_webinaire
+        //                 }).then((res) => {
+        //                     location.reload();
+        //                 }).always((res) => {
+        //                     $('.container').preloader("remove")
+        //                 })
 
 
-                    },
-                    cancel: function() {
-                        return 0;
-                    },
+        //             },
+        //             cancel: function() {
+        //                 return 0;
+        //             },
 
-                }
-            });
-        }
+        //         }
+        //     });
+        // }
     </script>
 @endsection

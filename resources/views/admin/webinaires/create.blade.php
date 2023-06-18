@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="form-group row m-3">
                     <label for="start_dt" class="col-sm-2 col-form-label">Date de début :</label>
                     <div class="col-sm-10">
@@ -92,27 +92,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.tiny.cloud/1/8r97prsyjges6lnmowcd6rx3sk596fyoaxoxeida58e8jygi/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+
     <script>
-        tinymce.init({
-            images_upload_url: '{{ route('admin.webinaires.image_upload') }}',
-            // images_upload_handler: example_image_upload_handler,
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-            mergetags_list: [{
-                    value: 'First.Name',
-                    title: 'Prénom'
-                },
-                {
-                    value: 'Email',
-                    title: 'Email'
-                },
-            ]
-        });
+
         document.getElementById('file-upload').addEventListener('change', function(event) {
             var input = event.target;
             var reader = new FileReader();
@@ -131,9 +113,7 @@
         });
     </script>
     <style>
-        .tox-notifications-container {
-            display: none
-        }
+       
 
         input[type="file"] {
             /* Hide the default file input button */

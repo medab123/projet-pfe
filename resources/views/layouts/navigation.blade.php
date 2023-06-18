@@ -49,7 +49,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item @if(request()->routeIs('about')) active @endif">
+                    {{-- <li class="nav-item @if(request()->routeIs('about')) active @endif">
                         <a class="nav-link" href="{{ route('about') }}" >
                             <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/file-text -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -63,7 +63,7 @@
                                 {{ __('About') }}
                             </span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
